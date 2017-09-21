@@ -2,11 +2,10 @@
 import java.util.HashMap;
 import java.util.Map;
 
-
 class Solution {
 	public static void main(String args[]){
 		Solution s = new Solution();
-		System.out.println(s.solution("00:01:07,400-234-090\n00:05:01,701-080-080\n00:05:00,400-234-090\n00:01:06,701-080-080"));
+		System.out.println(s.solution("00:01:07,400-234-090\n00:05:01,701-080-080"));
 	}
 	    public int solution(String S) {
 	        // write your code in Java SE 8
@@ -15,7 +14,7 @@ class Solution {
 	        String[] lines = S.split("\n");
 	        HashMap<String,int[]> pairs = new HashMap<String,int[]>();
 	        
-	        int max = 0;
+	        double max = 0;
 	        String maxPhone = null;
 	        for(String s : lines){
 	            String[] time_number = s.split(",");
@@ -53,13 +52,13 @@ class Solution {
 	        }
 	        for(Map.Entry<String,int[]> map : pairs.entrySet()){
 	        	int[] curr = map.getValue();
-	        	if(curr[0]+curr[1] > max){
-	        		max = curr[0]+curr[1];
+	        	if(curr[0]+(curr[1]/60) > max){
+	        		max = curr[0]+(curr[1]/60);
 	        		maxPhone = map.getKey();
 	        	}
 	        	else if(curr[0]+curr[1] == max){
 	        		if(map.getKey().compareTo(maxPhone) < 1){
-	        			max = curr[0]+curr[1];
+	        			max = curr[0]+ (curr[1]/60);
 		        		maxPhone = map.getKey();
 	        		}
 	        		
